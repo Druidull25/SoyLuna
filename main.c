@@ -7,6 +7,11 @@ typedef struct NODE{
     struct NODE *rightChild;
 }NODE;
 
+void Gay()
+{
+    printf("Nice");
+}
+
 
 
 int main(void)
