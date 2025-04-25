@@ -1,6 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+typedef struct NODE{
+    int data;
+    struct NODE *leftChild;
+    struct NODE *rightChild;
+}NODE;
 
 
 
