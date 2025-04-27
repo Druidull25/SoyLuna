@@ -11,14 +11,17 @@ typedef struct NODE{
 
 int main(void)
 {
-    int n, i;
-    printf("Hello Niagra Fall!\nDe cate ori sa repet un mesaj?");
-    scanf("%d", &n);
+    InitWindow(800, 450, "Raylib Window");
 
-    for (i = 0; i < n; i++)
+    while (!WindowShouldClose())
     {
-        printf("Miaw Miaw\n");
+        BeginDrawing();
+        ClearBackground(RAYWHITE);
+        DrawText("Hello, Raylib!", 190, 200, 20, LIGHTGRAY);
+        EndDrawing();
     }
 
+    CloseWindow();
     return 0;
+
 }
