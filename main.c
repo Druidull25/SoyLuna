@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <raylib.h>
 
 typedef struct NODE{
     int data;
@@ -18,7 +19,6 @@ int main(void)
     {
         printf("Miaw Miaw\n");
     }
-
 
     return 0;
 }
