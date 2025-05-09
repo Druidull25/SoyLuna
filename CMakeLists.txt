@@ -1,4 +1,3 @@
-
 cmake_minimum_required(VERSION 3.14) # Ensure we have a recent CMake version
 project(SoyLuna)
 
@@ -19,7 +18,15 @@ set(BUILD_GAMES    OFF CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(raylib)
 
 # Add your executable
-add_executable(${PROJECT_NAME} main.c)
+#add_executable(${PROJECT_NAME} SoyLuna/main.c)
+add_executable(${PROJECT_NAME}
+        SoyLuna/main.c
+        SoyLuna/game.c
+        SoyLuna/game_screen.c
+        SoyLuna/player.c
+        SoyLuna/title_screen.c
+        SoyLuna/utils.c
+)
 
 # Link raylib with your executable
 target_link_libraries(${PROJECT_NAME} PRIVATE raylib)
