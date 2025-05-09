@@ -7,7 +7,7 @@
 #define GRID_WIDTH 28
 #define GRID_CELL_SIZE 25
 
-#define PLAYER_SIZE 20
+#define PLAYER_SIZE 20.0
 
 Block playGrid[GRID_LENGTH][GRID_WIDTH];
 
@@ -40,7 +40,7 @@ void LoadGameLayout(float* playerX, float* playerY)
 	fclose(MapInputFile);
 }
 
-void DrawGrid(Rectangle cell)
+void DrawGameGrid(Rectangle cell)
 {
 	Color cellColor[] = { RAYWHITE, SKYBLUE, MAGENTA };
 	int n = sizeof(cellColor) / sizeof(cellColor[0]);
@@ -199,7 +199,7 @@ Command GameScreen()
 		BeginDrawing();
 		ClearBackground(backgroundColor);
 
-		DrawGrid(startingCell);
+		DrawGameGrid(startingCell);
 		DrawRectangle(playerX, playerY, PLAYER_SIZE, PLAYER_SIZE, RED);
 
 		DrawButton(backButton);
