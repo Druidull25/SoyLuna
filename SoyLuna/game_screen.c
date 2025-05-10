@@ -42,7 +42,7 @@ void LoadGameLayout(float* playerX, float* playerY)
 
 void DrawGameGrid(Rectangle cell)
 {
-	Color cellColor[] = { RAYWHITE, SKYBLUE, MAGENTA };
+	Color cellColor[] = { RAYWHITE, SKYBLUE, MAGENTA, GREEN };
 	int n = sizeof(cellColor) / sizeof(cellColor[0]);
 
 	for (int i = 0; i < GRID_LENGTH; ++i)
@@ -87,10 +87,39 @@ int IsInWall(float playerX, float playerY)
 
 void UpdateGrid(float playerX, float playerY, int value)
 {
-	*MapToGrid(playerX, playerY) = value;
-	*MapToGrid(playerX + PLAYER_SIZE, playerY) = value;
-	*MapToGrid(playerX + PLAYER_SIZE, playerY + PLAYER_SIZE) = value;
-	*MapToGrid(playerX, playerY + PLAYER_SIZE) = value;
+	int X, Y;
+	X = playerX;
+	Y = playerY;
+
+
+
+	if (*MapToGrid(playerX,playerY) != 3)
+	{
+		*MapToGrid(playerX, playerY) = value;
+
+	}
+
+
+
+	if (*MapToGrid(playerX + PLAYER_SIZE, playerY) != 3)
+	{
+		*MapToGrid(playerX + PLAYER_SIZE, playerY) = value;
+	}
+
+
+	if (*MapToGrid(playerX + PLAYER_SIZE, playerY + PLAYER_SIZE) != 3)
+	{
+		*MapToGrid(playerX + PLAYER_SIZE, playerY + PLAYER_SIZE) = value;
+	}
+
+
+
+	if (*MapToGrid(playerX, playerY + PLAYER_SIZE) != 3)
+	{
+		*MapToGrid(playerX, playerY + PLAYER_SIZE) = value;
+	}
+
+	
 }
 
 void MovePlayer(float* playerX, float* playerY, float speed)
@@ -98,7 +127,9 @@ void MovePlayer(float* playerX, float* playerY, float speed)
 	float tX = *playerX;
 	float tY = *playerY;
 
+
 	UpdateGrid(*playerX, *playerY, 0);
+
 
 	speed = speed * GetFrameTime();
 
@@ -170,6 +201,7 @@ Command GameScreen()
 	float playerX = 0;
 	float playerY = 0;
 	float speed = 125.0f;
+	int is_in_ques = 0;
 
 	InitGrid();
 
@@ -189,12 +221,16 @@ Command GameScreen()
 		if (IsMouseButtonDown(1) && IsInGrid(GetMouseX(), GetMouseY()))
 			*MapToGrid(GetMouseX(), GetMouseY()) = 0;
 
+		if (IsKeyDown(CONTROL_Q) && IsInGrid(GetMouseX(), GetMouseY()))
+			*MapToGrid(GetMouseX(), GetMouseY()) = 3;
+
 		if (IsKeyDown(CONTROL_SPRINT))
 			speed = 250.0f;
 		else
 			speed = 125.0f;
 
-		MovePlayer(&playerX, &playerY, speed);
+			MovePlayer(&playerX, &playerY, speed);
+		
 
 		BeginDrawing();
 		ClearBackground(backgroundColor);
@@ -206,7 +242,7 @@ Command GameScreen()
 		DrawButton(saveButton);
 		DrawButton(loadButton);
 
-		if (IsKeyDown(CONTROL_SHOWDIALOG))
+		if (IsKeyDown(CONTROL_SHOWDIALOG) && *MapToGrid(playerX,playerY) == 3)
 		{
 			DrawTextBox((Rectangle) {
 				.x = 20,
@@ -215,6 +251,8 @@ Command GameScreen()
 				.height = 600,
 			}, "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque orci eros, pulvinar nec lectus id, auctor semper nisi. Cras eget convallis arcu. Etiam ac nisl auctor, varius velit quis, malesuada odio. Ut id mauris sed enim ullamcorper eleifend. Nunc in mi quis velit ultrices sollicitudin. Maecenas dapibus consectetur nunc, in euismod eros fringilla id. Maecenas molestie, neque sed suscipit rutrum, sem dolor laoreet justo, eget bibendum felis elit sit amet urna. Sed tempor vulputate dolor rutrum fringilla. Donec in elementum neque. Fusce et maximus enim. Vivamus nibh turpis, aliquet quis tristique ut, tincidunt non orci. Duis sollicitudin nunc ac est vestibulum auctor. Mauris imperdiet libero nisi.In massa mauris, fermentum ultricies sodales a, placerat vitae sapien. Mauris imperdiet justo vel elit elementum, non bibendum ex malesuada. asdjlkkadls kljadslkjdas ");
 		}
+
+
 
 		EndDrawing();
 	}
