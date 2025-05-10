@@ -2,6 +2,7 @@
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #define GRID_LENGTH 50
 #define GRID_WIDTH 28
@@ -10,6 +11,7 @@
 #define PLAYER_SIZE 20.0
 
 Block playGrid[GRID_LENGTH][GRID_WIDTH];
+Question q;
 
 void SaveGameLayout(float* playerX, float* playerY) {
 	FILE* MapOutputFile;
@@ -42,7 +44,7 @@ void LoadGameLayout(float* playerX, float* playerY)
 
 void DrawGameGrid(Rectangle cell)
 {
-	Color cellColor[] = { RAYWHITE, SKYBLUE, MAGENTA };
+	Color cellColor[] = { RAYWHITE, SKYBLUE, MAGENTA, GREEN };
 	int n = sizeof(cellColor) / sizeof(cellColor[0]);
 
 	for (int i = 0; i < GRID_LENGTH; ++i)
@@ -87,10 +89,32 @@ int IsInWall(float playerX, float playerY)
 
 void UpdateGrid(float playerX, float playerY, int value)
 {
-	*MapToGrid(playerX, playerY) = value;
-	*MapToGrid(playerX + PLAYER_SIZE, playerY) = value;
-	*MapToGrid(playerX + PLAYER_SIZE, playerY + PLAYER_SIZE) = value;
-	*MapToGrid(playerX, playerY + PLAYER_SIZE) = value;
+	if (*MapToGrid(playerX, playerY) != 3)
+	{
+		*MapToGrid(playerX, playerY) = value;
+
+	}
+
+
+
+	if (*MapToGrid(playerX + PLAYER_SIZE, playerY) != 3)
+	{
+		*MapToGrid(playerX + PLAYER_SIZE, playerY) = value;
+	}
+
+
+	if (*MapToGrid(playerX + PLAYER_SIZE, playerY + PLAYER_SIZE) != 3)
+	{
+		*MapToGrid(playerX + PLAYER_SIZE, playerY + PLAYER_SIZE) = value;
+	}
+
+
+
+	if (*MapToGrid(playerX, playerY + PLAYER_SIZE) != 3)
+	{
+		*MapToGrid(playerX, playerY + PLAYER_SIZE) = value;
+	}
+
 }
 
 void MovePlayer(float* playerX, float* playerY, float speed)
@@ -152,6 +176,28 @@ void DrawTextBox(Rectangle box, const char* text)
 	}
 }
 
+void DrawTextBox2(Rectangle box, char* text)
+{
+	int padding = 20;
+	int wordCount = 0;
+	int fontSize = 30;
+	const char** words = TextSplit(text, '1', &wordCount);
+
+	Vector2 pos = { box.x + padding, box.y + padding };
+
+	Color color = { 0, 0, 0, 100 };
+	DrawRectangleRec(box, color);
+
+	for (int i = 0; i < wordCount; ++i)
+	{
+
+			DrawText(words[i], pos.x, pos.y, fontSize, WHITE);
+
+			pos.x = box.x + padding;
+			pos.y += fontSize + padding;
+	}
+}
+
 Command GameScreen()
 {
 	Color backgroundColor = DARKGRAY;
@@ -172,6 +218,8 @@ Command GameScreen()
 	float speed = 125.0f;
 
 	InitGrid();
+	strcpy(q.question, "huh? hat?1A) explain1B) rrrrr");
+	q.ans = 'A';
 
 	while (!WindowShouldClose())
 	{
@@ -188,6 +236,9 @@ Command GameScreen()
 			*MapToGrid(GetMouseX(), GetMouseY()) = 2;
 		if (IsMouseButtonDown(1) && IsInGrid(GetMouseX(), GetMouseY()))
 			*MapToGrid(GetMouseX(), GetMouseY()) = 0;
+
+		if (IsKeyDown(KEY_Q) && IsInGrid(GetMouseX(), GetMouseY()))
+			*MapToGrid(GetMouseX(), GetMouseY()) = 3;
 
 		if (IsKeyDown(CONTROL_SPRINT))
 			speed = 250.0f;
@@ -206,14 +257,44 @@ Command GameScreen()
 		DrawButton(saveButton);
 		DrawButton(loadButton);
 
-		if (IsKeyDown(CONTROL_SHOWDIALOG))
+		if (IsKeyDown(CONTROL_SHOWDIALOG)|| *MapToGrid(playerX,playerY) == 3)
 		{
-			DrawTextBox((Rectangle) {
+			DrawTextBox2((Rectangle) {
 				.x = 20,
 				.y = 20,
 				.width = 1200,
 				.height = 600,
-			}, "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque orci eros, pulvinar nec lectus id, auctor semper nisi. Cras eget convallis arcu. Etiam ac nisl auctor, varius velit quis, malesuada odio. Ut id mauris sed enim ullamcorper eleifend. Nunc in mi quis velit ultrices sollicitudin. Maecenas dapibus consectetur nunc, in euismod eros fringilla id. Maecenas molestie, neque sed suscipit rutrum, sem dolor laoreet justo, eget bibendum felis elit sit amet urna. Sed tempor vulputate dolor rutrum fringilla. Donec in elementum neque. Fusce et maximus enim. Vivamus nibh turpis, aliquet quis tristique ut, tincidunt non orci. Duis sollicitudin nunc ac est vestibulum auctor. Mauris imperdiet libero nisi.In massa mauris, fermentum ultricies sodales a, placerat vitae sapien. Mauris imperdiet justo vel elit elementum, non bibendum ex malesuada. asdjlkkadls kljadslkjdas ");
+			},    q.question);
+
+			if (IsKeyDown(KEY_A) && !IsKeyDown(KEY_B))
+			{
+				if (q.ans == 'A')
+				{
+					DrawText("YAY!", 40, 510, 30, WHITE);
+
+
+				}
+				else
+				{
+					DrawText("NO YOU DUMBASS!", 40, 510, 30, WHITE);
+
+				}
+			}
+			if (IsKeyDown(KEY_B) && !IsKeyDown(KEY_A))
+			{
+				if (q.ans == 'B')
+				{
+					DrawText("YAY!", 40, 510, 30, WHITE);
+
+
+				}
+				else
+				{
+					DrawText("NO YOU DUMBASS!", 40, 510, 30, WHITE);
+
+				}
+			}
+
 		}
 
 		EndDrawing();
