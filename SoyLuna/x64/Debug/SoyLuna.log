@@ -1,56 +1,63 @@
 ﻿  game.c
   game_screen.c
-D:\Visual Studio\Projects\SoyLuna\SoyLuna\game_screen.c(43,25): warning C4028: formal parameter 1 different from declaration
-D:\Visual Studio\Projects\SoyLuna\SoyLuna\game_screen.c(43,6): warning C4029: declared formal parameter list different from definition
-D:\Visual Studio\Projects\SoyLuna\SoyLuna\game_screen.c(43,6): warning C4273: 'DrawGrid': inconsistent dll linkage
-      C:\vcpkg\vcpkg\installed\x64-windows\include\raylib.h(1546,12):
-      see previous definition of 'DrawGrid'
-  
-D:\Visual Studio\Projects\SoyLuna\SoyLuna\game_screen.c(53,24): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
-D:\Visual Studio\Projects\SoyLuna\SoyLuna\game_screen.c(53,49): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
-D:\Visual Studio\Projects\SoyLuna\SoyLuna\game_screen.c(54,8): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
-D:\Visual Studio\Projects\SoyLuna\SoyLuna\game_screen.c(54,20): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
-D:\Visual Studio\Projects\SoyLuna\SoyLuna\game_screen.c(66,2): warning C4133: 'return': incompatible types - from 'Block *' to 'int *'
-D:\Visual Studio\Projects\SoyLuna\SoyLuna\game_screen.c(77,30): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
-D:\Visual Studio\Projects\SoyLuna\SoyLuna\game_screen.c(77,39): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
-D:\Visual Studio\Projects\SoyLuna\SoyLuna\game_screen.c(78,23): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
-D:\Visual Studio\Projects\SoyLuna\SoyLuna\game_screen.c(78,38): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
-D:\Visual Studio\Projects\SoyLuna\SoyLuna\game_screen.c(79,23): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
-D:\Visual Studio\Projects\SoyLuna\SoyLuna\game_screen.c(79,46): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
-D:\Visual Studio\Projects\SoyLuna\SoyLuna\game_screen.c(80,15): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
-D:\Visual Studio\Projects\SoyLuna\SoyLuna\game_screen.c(80,32): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
-D:\Visual Studio\Projects\SoyLuna\SoyLuna\game_screen.c(90,13): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
-D:\Visual Studio\Projects\SoyLuna\SoyLuna\game_screen.c(90,22): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
-D:\Visual Studio\Projects\SoyLuna\SoyLuna\game_screen.c(91,21): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
-D:\Visual Studio\Projects\SoyLuna\SoyLuna\game_screen.c(91,36): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
-D:\Visual Studio\Projects\SoyLuna\SoyLuna\game_screen.c(92,21): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
-D:\Visual Studio\Projects\SoyLuna\SoyLuna\game_screen.c(92,44): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
-D:\Visual Studio\Projects\SoyLuna\SoyLuna\game_screen.c(93,13): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
-D:\Visual Studio\Projects\SoyLuna\SoyLuna\game_screen.c(93,30): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
-D:\Visual Studio\Projects\SoyLuna\SoyLuna\game_screen.c(144,26): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
-D:\Visual Studio\Projects\SoyLuna\SoyLuna\game_screen.c(144,33): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
-D:\Visual Studio\Projects\SoyLuna\SoyLuna\game_screen.c(159,68): warning C4305: 'function': truncation from 'double' to 'float'
-D:\Visual Studio\Projects\SoyLuna\SoyLuna\game_screen.c(160,68): warning C4305: 'function': truncation from 'double' to 'float'
-D:\Visual Studio\Projects\SoyLuna\SoyLuna\game_screen.c(161,69): warning C4305: 'function': truncation from 'double' to 'float'
-D:\Visual Studio\Projects\SoyLuna\SoyLuna\game_screen.c(187,40): warning C4244: 'function': conversion from 'int' to 'float', possible loss of data
-D:\Visual Studio\Projects\SoyLuna\SoyLuna\game_screen.c(187,53): warning C4244: 'function': conversion from 'int' to 'float', possible loss of data
-D:\Visual Studio\Projects\SoyLuna\SoyLuna\game_screen.c(189,40): warning C4244: 'function': conversion from 'int' to 'float', possible loss of data
-D:\Visual Studio\Projects\SoyLuna\SoyLuna\game_screen.c(189,53): warning C4244: 'function': conversion from 'int' to 'float', possible loss of data
-D:\Visual Studio\Projects\SoyLuna\SoyLuna\game_screen.c(203,17): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
-D:\Visual Studio\Projects\SoyLuna\SoyLuna\game_screen.c(203,26): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
   main.c
   title_screen.c
-D:\Visual Studio\Projects\SoyLuna\SoyLuna\title_screen.c(16,66): warning C4305: 'function': truncation from 'double' to 'float'
-D:\Visual Studio\Projects\SoyLuna\SoyLuna\title_screen.c(19,66): warning C4305: 'function': truncation from 'double' to 'float'
   utils.c
-D:\Visual Studio\Projects\SoyLuna\SoyLuna\utils.c(11,26): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-D:\Visual Studio\Projects\SoyLuna\SoyLuna\utils.c(12,26): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-D:\Visual Studio\Projects\SoyLuna\SoyLuna\utils.c(23,67): warning C4244: 'function': conversion from 'int' to 'float', possible loss of data
-D:\Visual Studio\Projects\SoyLuna\SoyLuna\utils.c(23,89): warning C4244: 'function': conversion from 'int' to 'float', possible loss of data
-D:\Visual Studio\Projects\SoyLuna\SoyLuna\utils.c(24,52): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-D:\Visual Studio\Projects\SoyLuna\SoyLuna\utils.c(25,53): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
   Generating Code...
-     Creating library D:\Visual Studio\Projects\SoyLuna\x64\Debug\SoyLuna.lib and object D:\Visual Studio\Projects\SoyLuna\x64\Debug\SoyLuna.exp
-  SoyLuna.vcxproj -> D:\Visual Studio\Projects\SoyLuna\x64\Debug\SoyLuna.exe
-  'pwsh.exe' is not recognized as an internal or external command,
-  operable program or batch file.
+C:\Users\alexa\source\repos\SoyLuna\SoyLuna\game_screen.c(56,24): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
+C:\Users\alexa\source\repos\SoyLuna\SoyLuna\game_screen.c(56,49): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
+C:\Users\alexa\source\repos\SoyLuna\SoyLuna\game_screen.c(57,8): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
+C:\Users\alexa\source\repos\SoyLuna\SoyLuna\game_screen.c(57,20): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
+C:\Users\alexa\source\repos\SoyLuna\SoyLuna\game_screen.c(69,2): warning C4133: 'return': incompatible types - from 'Block *' to 'int *'
+C:\Users\alexa\source\repos\SoyLuna\SoyLuna\game_screen.c(80,30): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
+C:\Users\alexa\source\repos\SoyLuna\SoyLuna\game_screen.c(80,39): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
+C:\Users\alexa\source\repos\SoyLuna\SoyLuna\game_screen.c(81,23): warning C4244: 'function': conversion from 'double' to 'int', possible loss of data
+C:\Users\alexa\source\repos\SoyLuna\SoyLuna\game_screen.c(81,38): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
+C:\Users\alexa\source\repos\SoyLuna\SoyLuna\game_screen.c(82,23): warning C4244: 'function': conversion from 'double' to 'int', possible loss of data
+C:\Users\alexa\source\repos\SoyLuna\SoyLuna\game_screen.c(82,46): warning C4244: 'function': conversion from 'double' to 'int', possible loss of data
+C:\Users\alexa\source\repos\SoyLuna\SoyLuna\game_screen.c(83,15): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
+C:\Users\alexa\source\repos\SoyLuna\SoyLuna\game_screen.c(83,32): warning C4244: 'function': conversion from 'double' to 'int', possible loss of data
+C:\Users\alexa\source\repos\SoyLuna\SoyLuna\game_screen.c(94,6): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\alexa\source\repos\SoyLuna\SoyLuna\game_screen.c(95,6): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\alexa\source\repos\SoyLuna\SoyLuna\game_screen.c(99,17): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
+C:\Users\alexa\source\repos\SoyLuna\SoyLuna\game_screen.c(99,25): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
+C:\Users\alexa\source\repos\SoyLuna\SoyLuna\game_screen.c(101,14): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
+C:\Users\alexa\source\repos\SoyLuna\SoyLuna\game_screen.c(101,23): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
+C:\Users\alexa\source\repos\SoyLuna\SoyLuna\game_screen.c(107,25): warning C4244: 'function': conversion from 'double' to 'int', possible loss of data
+C:\Users\alexa\source\repos\SoyLuna\SoyLuna\game_screen.c(107,40): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
+C:\Users\alexa\source\repos\SoyLuna\SoyLuna\game_screen.c(109,22): warning C4244: 'function': conversion from 'double' to 'int', possible loss of data
+C:\Users\alexa\source\repos\SoyLuna\SoyLuna\game_screen.c(109,37): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
+C:\Users\alexa\source\repos\SoyLuna\SoyLuna\game_screen.c(113,25): warning C4244: 'function': conversion from 'double' to 'int', possible loss of data
+C:\Users\alexa\source\repos\SoyLuna\SoyLuna\game_screen.c(113,48): warning C4244: 'function': conversion from 'double' to 'int', possible loss of data
+C:\Users\alexa\source\repos\SoyLuna\SoyLuna\game_screen.c(115,22): warning C4244: 'function': conversion from 'double' to 'int', possible loss of data
+C:\Users\alexa\source\repos\SoyLuna\SoyLuna\game_screen.c(115,45): warning C4244: 'function': conversion from 'double' to 'int', possible loss of data
+C:\Users\alexa\source\repos\SoyLuna\SoyLuna\game_screen.c(120,17): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
+C:\Users\alexa\source\repos\SoyLuna\SoyLuna\game_screen.c(120,34): warning C4244: 'function': conversion from 'double' to 'int', possible loss of data
+C:\Users\alexa\source\repos\SoyLuna\SoyLuna\game_screen.c(122,14): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
+C:\Users\alexa\source\repos\SoyLuna\SoyLuna\game_screen.c(122,31): warning C4244: 'function': conversion from 'double' to 'int', possible loss of data
+C:\Users\alexa\source\repos\SoyLuna\SoyLuna\game_screen.c(181,26): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
+C:\Users\alexa\source\repos\SoyLuna\SoyLuna\game_screen.c(181,33): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
+C:\Users\alexa\source\repos\SoyLuna\SoyLuna\game_screen.c(196,68): warning C4305: 'function': truncation from 'double' to 'float'
+C:\Users\alexa\source\repos\SoyLuna\SoyLuna\game_screen.c(197,68): warning C4305: 'function': truncation from 'double' to 'float'
+C:\Users\alexa\source\repos\SoyLuna\SoyLuna\game_screen.c(198,69): warning C4305: 'function': truncation from 'double' to 'float'
+C:\Users\alexa\source\repos\SoyLuna\SoyLuna\game_screen.c(225,40): warning C4244: 'function': conversion from 'int' to 'float', possible loss of data
+C:\Users\alexa\source\repos\SoyLuna\SoyLuna\game_screen.c(225,53): warning C4244: 'function': conversion from 'int' to 'float', possible loss of data
+C:\Users\alexa\source\repos\SoyLuna\SoyLuna\game_screen.c(227,40): warning C4244: 'function': conversion from 'int' to 'float', possible loss of data
+C:\Users\alexa\source\repos\SoyLuna\SoyLuna\game_screen.c(227,53): warning C4244: 'function': conversion from 'int' to 'float', possible loss of data
+C:\Users\alexa\source\repos\SoyLuna\SoyLuna\game_screen.c(230,40): warning C4244: 'function': conversion from 'int' to 'float', possible loss of data
+C:\Users\alexa\source\repos\SoyLuna\SoyLuna\game_screen.c(230,53): warning C4244: 'function': conversion from 'int' to 'float', possible loss of data
+C:\Users\alexa\source\repos\SoyLuna\SoyLuna\game_screen.c(245,17): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
+C:\Users\alexa\source\repos\SoyLuna\SoyLuna\game_screen.c(245,26): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
+C:\Users\alexa\source\repos\SoyLuna\SoyLuna\game_screen.c(245,35): warning C4244: 'function': conversion from 'double' to 'int', possible loss of data
+C:\Users\alexa\source\repos\SoyLuna\SoyLuna\game_screen.c(245,48): warning C4244: 'function': conversion from 'double' to 'int', possible loss of data
+C:\Users\alexa\source\repos\SoyLuna\SoyLuna\game_screen.c(251,51): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
+C:\Users\alexa\source\repos\SoyLuna\SoyLuna\game_screen.c(251,59): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
+C:\Users\alexa\source\repos\SoyLuna\SoyLuna\title_screen.c(16,66): warning C4305: 'function': truncation from 'double' to 'float'
+C:\Users\alexa\source\repos\SoyLuna\SoyLuna\title_screen.c(19,66): warning C4305: 'function': truncation from 'double' to 'float'
+C:\Users\alexa\source\repos\SoyLuna\SoyLuna\utils.c(11,26): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\alexa\source\repos\SoyLuna\SoyLuna\utils.c(12,26): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\alexa\source\repos\SoyLuna\SoyLuna\utils.c(23,67): warning C4244: 'function': conversion from 'int' to 'float', possible loss of data
+C:\Users\alexa\source\repos\SoyLuna\SoyLuna\utils.c(23,89): warning C4244: 'function': conversion from 'int' to 'float', possible loss of data
+C:\Users\alexa\source\repos\SoyLuna\SoyLuna\utils.c(24,52): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\alexa\source\repos\SoyLuna\SoyLuna\utils.c(25,53): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+LINK : fatal error LNK1168: cannot open C:\Users\alexa\source\repos\SoyLuna\x64\Debug\SoyLuna.exe for writing

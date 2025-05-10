@@ -13,6 +13,11 @@ typedef struct Text {
 
 } Text;
 
+typedef struct Question
+{
+	 char text[300], ans;
+}Question;
+
 typedef struct Button {
 
 	const char* text;

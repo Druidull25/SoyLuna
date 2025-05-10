@@ -2,6 +2,7 @@
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include<string.h>
 
 #define GRID_LENGTH 50
 #define GRID_WIDTH 28
@@ -10,6 +11,8 @@
 #define PLAYER_SIZE 20.0
 
 Block playGrid[GRID_LENGTH][GRID_WIDTH];
+
+Question q;
 
 void SaveGameLayout(float* playerX, float* playerY) {
 	FILE* MapOutputFile;
@@ -153,6 +156,9 @@ void InitGrid()
 	{
 		playGrid[i][j] = 0;
 	}
+
+	strcpy(q.text, "What is the main goal of integrating elements across VR, AR, and MR platforms?\n\nA) Seamless User Experience\n\nB) Increasing Complexity\n\nC) Reducing File Size\n\nD) Enhancing Brightness\n");
+	q.ans = 'A';
 }
 
 void DrawTextBox(Rectangle box, const char* text)
@@ -249,7 +255,7 @@ Command GameScreen()
 				.y = 20,
 				.width = 1200,
 				.height = 600,
-			}, "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque orci eros, pulvinar nec lectus id, auctor semper nisi. Cras eget convallis arcu. Etiam ac nisl auctor, varius velit quis, malesuada odio. Ut id mauris sed enim ullamcorper eleifend. Nunc in mi quis velit ultrices sollicitudin. Maecenas dapibus consectetur nunc, in euismod eros fringilla id. Maecenas molestie, neque sed suscipit rutrum, sem dolor laoreet justo, eget bibendum felis elit sit amet urna. Sed tempor vulputate dolor rutrum fringilla. Donec in elementum neque. Fusce et maximus enim. Vivamus nibh turpis, aliquet quis tristique ut, tincidunt non orci. Duis sollicitudin nunc ac est vestibulum auctor. Mauris imperdiet libero nisi.In massa mauris, fermentum ultricies sodales a, placerat vitae sapien. Mauris imperdiet justo vel elit elementum, non bibendum ex malesuada. asdjlkkadls kljadslkjdas ");
+			}, q.text);
 		}
 
 
