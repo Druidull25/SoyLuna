@@ -102,7 +102,7 @@ void UpdateGrid(float playerX, float playerY, int value)
 	if (*MapToGrid(playerX + PLAYER_SIZE, playerY) != 3 && *MapToGrid(playerX + PLAYER_SIZE, playerY) != 4)
 	{
 		*MapToGrid(playerX + PLAYER_SIZE, playerY) = value;
-	}//jjjjj
+	}
 
 
 	if (*MapToGrid(playerX + PLAYER_SIZE, playerY + PLAYER_SIZE) != 3 && *MapToGrid(playerX + PLAYER_SIZE, playerY + PLAYER_SIZE) != 4)
@@ -181,7 +181,7 @@ void DrawTextBox(Rectangle box, const char* text)
 void DrawTextBox2(Rectangle box, char* text)
 {
 	int padding = 20;
-	int wordCount = 0;
+	int wordCount = 0, wordCount2 = 0;
 	int fontSize = 20;
 	const char** words = TextSplit(text, '1', &wordCount);
 
@@ -191,9 +191,29 @@ void DrawTextBox2(Rectangle box, char* text)
 	DrawRectangleRec(box, color);
 
 	for (int i = 0; i < wordCount; ++i)
-	{
 
-			DrawText(words[i], pos.x, pos.y, fontSize, WHITE);
+	{
+		char aux[10000];
+		strcpy(aux, words[i]);
+		char* words2 = strtok(aux," ");
+
+			
+		while(words2)
+			{
+				if (pos.x + MeasureText(TextFormat(" %s", words2), fontSize) + padding
+					<= box.x + box.width)
+				{
+					DrawText(words2, pos.x, pos.y, fontSize, WHITE);
+					pos.x += MeasureText(TextFormat(" %s", words2), fontSize);
+				}
+				else
+				{
+					pos.x = box.x + padding;
+					pos.y += fontSize + padding;
+				}
+
+				words2 = strtok(NULL, " ");
+			}
 
 			pos.x = box.x + padding;
 			pos.y += fontSize + padding;
@@ -224,7 +244,7 @@ Command GameScreen()
 	char life[] = "Number of lives: 3";
 
 	InitGrid();
-	strcpy(q.question, "huh? hat?1A) explain1B) rrrrr");
+	strcpy(q.question, "9. Which aspects of the art pieces should be emphasized in the VR experience to create an immersive and engaging experience for users?1A) explain1B) r rrrr");
 	q.ans = 'A';
 
 	while (!WindowShouldClose())
