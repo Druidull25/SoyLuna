@@ -10,8 +10,9 @@
 
 #define PLAYER_SIZE 20.0
 
+int QuestionsGrid[GRID_LENGTH][GRID_WIDTH] = { 0 };
 Block playGrid[GRID_LENGTH][GRID_WIDTH];
-Question q;
+Question q[100];
 
 void SaveGameLayout(float* playerX, float* playerY) {
 	FILE* MapOutputFile;
@@ -44,7 +45,7 @@ void LoadGameLayout(float* playerX, float* playerY)
 
 void DrawGameGrid(Rectangle cell)
 {
-	Color cellColor[] = { RAYWHITE, SKYBLUE, MAGENTA, GREEN, BLACK};
+	Color cellColor[] = { RAYWHITE, SKYBLUE, MAGENTA, GREEN, BLACK, YELLOW};
 	int n = sizeof(cellColor) / sizeof(cellColor[0]);
 
 	for (int i = 0; i < GRID_LENGTH; ++i)
@@ -91,7 +92,7 @@ int IsInWall(float playerX, float playerY)
 
 void UpdateGrid(float playerX, float playerY, int value)
 {
-	if (*MapToGrid(playerX, playerY) != 3 && *MapToGrid(playerX, playerY) != 4)
+	if (*MapToGrid(playerX, playerY) < 3)
 	{
 		*MapToGrid(playerX, playerY) = value;
 
@@ -99,20 +100,20 @@ void UpdateGrid(float playerX, float playerY, int value)
 
 
 
-	if (*MapToGrid(playerX + PLAYER_SIZE, playerY) != 3 && *MapToGrid(playerX + PLAYER_SIZE, playerY) != 4)
+	if (*MapToGrid(playerX + PLAYER_SIZE, playerY) < 3)
 	{
 		*MapToGrid(playerX + PLAYER_SIZE, playerY) = value;
 	}
 
 
-	if (*MapToGrid(playerX + PLAYER_SIZE, playerY + PLAYER_SIZE) != 3 && *MapToGrid(playerX + PLAYER_SIZE, playerY + PLAYER_SIZE) != 4)
+	if (*MapToGrid(playerX + PLAYER_SIZE, playerY + PLAYER_SIZE) < 3)
 	{
 		*MapToGrid(playerX + PLAYER_SIZE, playerY + PLAYER_SIZE) = value;
 	}
 
 
 
-	if (*MapToGrid(playerX, playerY + PLAYER_SIZE) != 3 && *MapToGrid(playerX, playerY + PLAYER_SIZE) != 4)
+	if (*MapToGrid(playerX, playerY + PLAYER_SIZE) < 3)
 	{
 		*MapToGrid(playerX, playerY + PLAYER_SIZE) = value;
 	}
@@ -205,6 +206,7 @@ void DrawTextBox2(Rectangle box, char* text)
 				{
 					DrawText(words2, pos.x, pos.y, fontSize, WHITE);
 					pos.x += MeasureText(TextFormat(" %s", words2), fontSize);
+					words2 = strtok(NULL, " ");
 				}
 				else
 				{
@@ -212,8 +214,7 @@ void DrawTextBox2(Rectangle box, char* text)
 					pos.y += fontSize + padding;
 				}
 
-				words2 = strtok(NULL, " ");
-			}
+		}
 
 			pos.x = box.x + padding;
 			pos.y += fontSize + padding;
@@ -244,8 +245,18 @@ Command GameScreen()
 	char life[] = "Number of lives: 3";
 
 	InitGrid();
-	strcpy(q.question, "9. Which aspects of the art pieces should be emphasized in the VR experience to create an immersive and engaging experience for users?1A) explain1B) r rrrr");
-	q.ans = 'A';
+
+	strcpy(q[1].question, "9. Which aspects of the art pieces should be emphasized in the VR experience to create an immersive and engaging experience for users?1A) explain1B) r rrrr");
+	q[1].ans = 'A';
+	q[1].posX = 100;
+	q[1].posY = 100;
+	int gridX = q[1].posX / GRID_CELL_SIZE;
+	int gridY = q[1].posY / GRID_CELL_SIZE;
+
+	if (gridX >= GRID_LENGTH) gridX = GRID_LENGTH - 1;
+	if (gridY >= GRID_WIDTH) gridY = GRID_WIDTH - 1;
+	QuestionsGrid[gridX][gridY] = 1;
+	*MapToGrid(q[1].posX, q[1].posY) = 3;
 
 	while (!WindowShouldClose())
 	{
@@ -263,8 +274,8 @@ Command GameScreen()
 		if (IsMouseButtonDown(1) && IsInGrid(GetMouseX(), GetMouseY()))
 			*MapToGrid(GetMouseX(), GetMouseY()) = 0;
 
-		if (IsKeyDown(KEY_Q) && IsInGrid(GetMouseX(), GetMouseY()))
-			*MapToGrid(GetMouseX(), GetMouseY()) = 3;
+		if (IsKeyDown(KEY_V) && IsInGrid(GetMouseX(), GetMouseY()))
+			*MapToGrid(GetMouseX(), GetMouseY()) = 5;
 
 		if (IsKeyDown(KEY_G) && IsInGrid(GetMouseX(), GetMouseY()))
 			*MapToGrid(GetMouseX(), GetMouseY()) = 4;
@@ -286,18 +297,22 @@ Command GameScreen()
 		DrawButton(saveButton);
 		DrawButton(loadButton);
 
-		if (IsKeyDown(CONTROL_SHOWDIALOG)|| *MapToGrid(playerX,playerY) == 3)
+		if (*MapToGrid(playerX,playerY) == 3)
 		{
+			int gridX = playerX / GRID_CELL_SIZE;
+			int gridY = playerY / GRID_CELL_SIZE;
+			if (gridX >= GRID_LENGTH) gridX = GRID_LENGTH - 1;
+			if (gridY >= GRID_WIDTH) gridY = GRID_WIDTH - 1;
 			DrawTextBox2((Rectangle) {
 				.x = 20,
 				.y = 20,
 				.width = 1200,
 				.height = 600,
-			},    q.question);
+			},    q[QuestionsGrid[gridX][gridY]].question);
 
 			if (IsKeyDown(KEY_A))
 			{
-				if (q.ans == 'A')
+				if (q[QuestionsGrid[gridX][gridY]].ans == 'A')
 				{
 
 						DrawText("YAY!", 40, 510, 20, WHITE);
@@ -321,7 +336,7 @@ Command GameScreen()
 			else
 			if (IsKeyDown(KEY_B))
 			{
-				if (q.ans == 'B')
+				if (q[QuestionsGrid[(int)playerX][(int)playerY]].ans == 'B')
 				{
 					DrawText("YAY!", 40, 510, 20, WHITE);
 
@@ -355,6 +370,16 @@ Command GameScreen()
 					.width = 1200,
 					.height = 600,
 			}, "CONFGRATULATIONS!");
+		}
+
+		if (*MapToGrid(playerX, playerY) == 5)
+		{
+			DrawTextBox2((Rectangle) {
+				.x = 20,
+					.y = 20,
+					.width = 1200,
+					.height = 600,
+			}, "DUNNO LOL!");
 		}
 
 		EndDrawing();
