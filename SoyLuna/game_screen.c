@@ -44,7 +44,7 @@ void LoadGameLayout(float* playerX, float* playerY)
 
 void DrawGameGrid(Rectangle cell)
 {
-	Color cellColor[] = { RAYWHITE, SKYBLUE, MAGENTA, GREEN };
+	Color cellColor[] = { RAYWHITE, SKYBLUE, MAGENTA, GREEN, BLACK};
 	int n = sizeof(cellColor) / sizeof(cellColor[0]);
 
 	for (int i = 0; i < GRID_LENGTH; ++i)
@@ -87,9 +87,11 @@ int IsInWall(float playerX, float playerY)
 	return wallCheck || hCheck || vCheck;
 }
 
+
+
 void UpdateGrid(float playerX, float playerY, int value)
 {
-	if (*MapToGrid(playerX, playerY) != 3)
+	if (*MapToGrid(playerX, playerY) != 3 && *MapToGrid(playerX, playerY) != 4)
 	{
 		*MapToGrid(playerX, playerY) = value;
 
@@ -97,20 +99,20 @@ void UpdateGrid(float playerX, float playerY, int value)
 
 
 
-	if (*MapToGrid(playerX + PLAYER_SIZE, playerY) != 3)
+	if (*MapToGrid(playerX + PLAYER_SIZE, playerY) != 3 && *MapToGrid(playerX + PLAYER_SIZE, playerY) != 4)
 	{
 		*MapToGrid(playerX + PLAYER_SIZE, playerY) = value;
-	}
+	}//jjjjj
 
 
-	if (*MapToGrid(playerX + PLAYER_SIZE, playerY + PLAYER_SIZE) != 3)
+	if (*MapToGrid(playerX + PLAYER_SIZE, playerY + PLAYER_SIZE) != 3 && *MapToGrid(playerX + PLAYER_SIZE, playerY + PLAYER_SIZE) != 4)
 	{
 		*MapToGrid(playerX + PLAYER_SIZE, playerY + PLAYER_SIZE) = value;
 	}
 
 
 
-	if (*MapToGrid(playerX, playerY + PLAYER_SIZE) != 3)
+	if (*MapToGrid(playerX, playerY + PLAYER_SIZE) != 3 && *MapToGrid(playerX, playerY + PLAYER_SIZE) != 4)
 	{
 		*MapToGrid(playerX, playerY + PLAYER_SIZE) = value;
 	}
@@ -180,7 +182,7 @@ void DrawTextBox2(Rectangle box, char* text)
 {
 	int padding = 20;
 	int wordCount = 0;
-	int fontSize = 30;
+	int fontSize = 20;
 	const char** words = TextSplit(text, '1', &wordCount);
 
 	Vector2 pos = { box.x + padding, box.y + padding };
@@ -213,9 +215,13 @@ Command GameScreen()
 		.height = GRID_CELL_SIZE,
 	};
 
+	int ok = 0;
+
 	float playerX = 0;
 	float playerY = 0;
 	float speed = 125.0f;
+
+	char life[] = "Number of lives: 3";
 
 	InitGrid();
 	strcpy(q.question, "huh? hat?1A) explain1B) rrrrr");
@@ -239,6 +245,9 @@ Command GameScreen()
 
 		if (IsKeyDown(KEY_Q) && IsInGrid(GetMouseX(), GetMouseY()))
 			*MapToGrid(GetMouseX(), GetMouseY()) = 3;
+
+		if (IsKeyDown(KEY_G) && IsInGrid(GetMouseX(), GetMouseY()))
+			*MapToGrid(GetMouseX(), GetMouseY()) = 4;
 
 		if (IsKeyDown(CONTROL_SPRINT))
 			speed = 250.0f;
@@ -266,38 +275,72 @@ Command GameScreen()
 				.height = 600,
 			},    q.question);
 
-			if (IsKeyDown(KEY_A) && !IsKeyDown(KEY_B))
+			if (IsKeyDown(KEY_A))
 			{
 				if (q.ans == 'A')
 				{
-					DrawText("YAY!", 40, 510, 30, WHITE);
+
+						DrawText("YAY!", 40, 510, 20, WHITE);
 
 
 				}
 				else
 				{
-					DrawText("NO YOU DUMBASS!", 40, 510, 30, WHITE);
+					DrawText("NO YOU DUMBASS!", 40, 510, 20, WHITE);
+					if (life[strlen(life) - 1] != '0' && !ok)
+					{
+						ok = 1;
+						life[strlen(life) - 1]--;
+					}
+
+
+
 
 				}
 			}
-			if (IsKeyDown(KEY_B) && !IsKeyDown(KEY_A))
+			else
+			if (IsKeyDown(KEY_B))
 			{
 				if (q.ans == 'B')
 				{
-					DrawText("YAY!", 40, 510, 30, WHITE);
+					DrawText("YAY!", 40, 510, 20, WHITE);
 
 
 				}
 				else
-				{
-					DrawText("NO YOU DUMBASS!", 40, 510, 30, WHITE);
 
-				}
+					{
+
+					DrawText("NO YOU DUMBASS!", 40, 510, 20, WHITE);
+					if (life[strlen(life) - 1] != '0' && !ok)
+					{
+						ok = 1;
+						life[strlen(life) - 1]--;
+					}
+
+					}
+			}
+			else
+			{
+				ok = 0;
 			}
 
 		}
 
+		if (*MapToGrid(playerX, playerY) == 4)
+		{
+			DrawTextBox2((Rectangle) {
+				.x = 20,
+					.y = 20,
+					.width = 1200,
+					.height = 600,
+			}, "CONFGRATULATIONS!");
+		}
+
 		EndDrawing();
+
+		DrawText(life, 40, 700, 20, WHITE);
+
 	}
 
 	return COM_EXIT;
