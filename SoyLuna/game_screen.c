@@ -11,6 +11,8 @@
 
 Block playGrid[GRID_LENGTH][GRID_WIDTH];
 
+
+
 void SaveGameLayout(float* playerX, float* playerY) {
 	FILE* MapOutputFile;
 	if ((MapOutputFile = fopen(FILENAME_LEVEL, "wb")) == NULL) {
