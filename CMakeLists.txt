@@ -31,6 +31,7 @@ add_executable(${PROJECT_NAME}
 # Link raylib with your executable
 target_link_libraries(${PROJECT_NAME} PRIVATE raylib)
 
+target_include_directories(${PROJECT_NAME} PRIVATE ${raylib_SOURCE_DIR}/src)
 # If you're on Windows and using MinGW, you might need these
 if(WIN32)
     target_link_libraries(${PROJECT_NAME} PRIVATE winmm)
