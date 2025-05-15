@@ -2,9 +2,10 @@
 #define GAME_H
 
 #include "raylib.h"
-
-#include "utils.h"
+#include "grid.h"
+#include "question.h"
 #include "config.h"
+#include "utils.h"
 
 typedef enum GameState {
 	STATE_NONE,
@@ -20,12 +21,6 @@ typedef enum Command {
 	COM_BACK,
 	COM_EXIT
 } Command;
-
-typedef enum Block {
-	EMPTY,
-	PLAYER,
-	BLOCK
-}Block;
 
 void InitGame();
 

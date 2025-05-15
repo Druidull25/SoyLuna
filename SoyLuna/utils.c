@@ -1,5 +1,7 @@
 #include "utils.h"
 #include <math.h>
+#include <stdio.h>
+#include "string.h"
 
 void DrawTextS(Text t)
 {
@@ -57,4 +59,32 @@ int ButtonClicked(Button b)
 		return 1;
 
 	return 0;
+}
+
+void DrawTextBox(Rectangle box, const char* text)
+{
+	int padding = 20;
+	int wordCount = 0;
+	int fontSize = 30;
+	const char** words = TextSplit(text, ' ', &wordCount);
+
+	Vector2 pos = { box.x + padding, box.y + padding };
+
+	Color color = { 0, 0, 0, 100 };
+	DrawRectangleRec(box, color);
+
+	for (int i = 0; i < wordCount; ++i)
+	{
+		if (pos.x + MeasureText(TextFormat(" %s", words[i]), fontSize) + padding
+			<= box.x + box.width)
+		{
+			DrawText(words[i], pos.x, pos.y, fontSize, WHITE);
+			pos.x += MeasureText(TextFormat(" %s", words[i]), fontSize);
+		}
+		else
+		{
+			pos.x = box.x + padding;
+			pos.y += fontSize + padding;
+		}
+	}
 }

@@ -2,6 +2,9 @@
 #define UTILS_H
 
 #include "raylib.h"
+#include "config.h"
+
+typedef enum Block Block;
 
 typedef struct Text {
 
@@ -25,6 +28,8 @@ typedef struct Button {
 
 } Button;
 
+
+
 int MouseOver(Rectangle r);
 
 Button MakeButton(Rectangle r, float roundness, const char* text, int fontSize);
@@ -32,5 +37,6 @@ int ButtonClicked(Button b);
 
 void DrawTextS(Text t);
 void DrawButton(Button b);
+void DrawTextBox(Rectangle box, const char* text);
 
 #endif

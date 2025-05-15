@@ -1,5 +1,5 @@
 #include "game.h"
-#include "stdio.h"
+#include <stdio.h>
 
 GameState gameState;
 

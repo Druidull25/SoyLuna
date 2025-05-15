@@ -2,154 +2,144 @@
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
-
-#define GRID_LENGTH 50
-#define GRID_WIDTH 28
-#define GRID_CELL_SIZE 25
-
-#define PLAYER_SIZE 20.0
+#include <limits.h>
 
 Block playGrid[GRID_LENGTH][GRID_WIDTH];
 
+char level_filenames[10][100] = {
+	"layoutfile.dat",
+	"level1.dat",
+	"level2.dat",
+	"level3.dat",
+	"level4.dat",
+	"level5.dat",
+	"level6.dat",
+	"level7.dat",
+	"level8.dat",
+	"level9.dat",
+};
 
-
-void SaveGameLayout(float* playerX, float* playerY) {
-	FILE* MapOutputFile;
-	if ((MapOutputFile = fopen(FILENAME_LEVEL, "wb")) == NULL) {
-		printf("\n <!!!> Nu poate fi deschis fisierul \"%s\"\n", FILENAME_LEVEL);
-		return;
-	}
-
-	fwrite(playerX, sizeof(playerX), 1, MapOutputFile);
-	fwrite(playerY, sizeof(playerY), 1, MapOutputFile);
-	fwrite(playGrid, sizeof(Block), GRID_LENGTH * GRID_WIDTH, MapOutputFile);
-
-	fclose(MapOutputFile);
-}
-
-void LoadGameLayout(float* playerX, float* playerY)
-{
-	FILE* MapInputFile;
-	if ((MapInputFile = fopen(FILENAME_LEVEL, "rb")) == NULL) {
-		printf("\n <!!!> Nu poate fi deschis fisierul \"%s\"\n", FILENAME_LEVEL);
-		return;
-	}
-
-	fread(playerX, sizeof(playerX), 1, MapInputFile);
-	fread(playerY, sizeof(playerY), 1, MapInputFile);
-	fread(playGrid, sizeof(Block), GRID_LENGTH * GRID_WIDTH, MapInputFile);
-
-	fclose(MapInputFile);
-}
-
-void DrawGameGrid(Rectangle cell)
-{
-	Color cellColor[] = { RAYWHITE, SKYBLUE, MAGENTA };
-	int n = sizeof(cellColor) / sizeof(cellColor[0]);
-
-	for (int i = 0; i < GRID_LENGTH; ++i)
-	for (int j = 0; j < GRID_WIDTH; ++j)
-	{
-		if (playGrid[i][j] >= n) continue;
-
-		DrawRectangle(cell.x + i * cell.width, cell.y + j * cell.height,
-			cell.width, cell.height, cellColor[playGrid[i][j]]);
-	}
-}
-
-int* MapToGrid(int x, int y)
-{
-	int gridX = x / GRID_CELL_SIZE;
-	int gridY = y / GRID_CELL_SIZE;
-
-	if (gridX >= GRID_LENGTH) gridX = GRID_LENGTH - 1;
-	if (gridY >= GRID_WIDTH) gridY = GRID_WIDTH - 1;
-
-	return &playGrid[gridX][gridY];
-}
-
-int IsInGrid(float x, float y)
-{
-	return (x >= 0 && x <= GRID_LENGTH * GRID_CELL_SIZE) &&
-		(y >= 0 && y <= GRID_WIDTH * GRID_CELL_SIZE);
-}
-
-int IsInWall(float playerX, float playerY)
-{
-	int wallCheck = (*MapToGrid(playerX, playerY) == 2) ||
-		(*MapToGrid(playerX + PLAYER_SIZE, playerY) == 2) ||
-		(*MapToGrid(playerX + PLAYER_SIZE, playerY + PLAYER_SIZE) == 2) ||
-		(*MapToGrid(playerX, playerY + PLAYER_SIZE) == 2);
-
-	int hCheck = (playerX < 0 || playerX + PLAYER_SIZE > GRID_LENGTH * GRID_CELL_SIZE);
-	int vCheck = (playerY < 0 || playerY + PLAYER_SIZE > GRID_WIDTH * GRID_CELL_SIZE);
-
-	return wallCheck || hCheck || vCheck;
-}
-
-void UpdateGrid(float playerX, float playerY, int value)
-{
-	*MapToGrid(playerX, playerY) = value;
-	*MapToGrid(playerX + PLAYER_SIZE, playerY) = value;
-	*MapToGrid(playerX + PLAYER_SIZE, playerY + PLAYER_SIZE) = value;
-	*MapToGrid(playerX, playerY + PLAYER_SIZE) = value;
-}
+char quiz_filenames[10][100] = {
+	"test.bin",
+	"level1.dat",
+	"level2.dat",
+	"level3.dat",
+	"level4.dat",
+	"level5.dat",
+	"level6.dat",
+	"level7.dat",
+	"level8.dat",
+	"level9.dat",
+};
 
 void MovePlayer(float* playerX, float* playerY, float speed)
 {
 	float tX = *playerX;
 	float tY = *playerY;
 
-	UpdateGrid(*playerX, *playerY, 0);
+	UpdateGrid(playGrid, *playerX, *playerY, 0);
 
 	speed = speed * GetFrameTime();
 
 	if (IsKeyDown(CONTROL_UP)) *playerY -= speed;
 	if (IsKeyDown(CONTROL_DOWN)) *playerY += speed;
-	if (IsInWall(*playerX, *playerY))
+	if (IsInWall(playGrid, *playerX, *playerY))
 		*playerY = tY;
 
 	if (IsKeyDown(CONTROL_LEFT)) *playerX -= speed;
 	if (IsKeyDown(CONTROL_RIGHT)) *playerX += speed;
-	if (IsInWall(*playerX, *playerY))
+	if (IsInWall(playGrid, *playerX, *playerY))
 		*playerX = tX;
 
-	UpdateGrid(*playerX, *playerY, 1);
+	UpdateGrid(playGrid, *playerX, *playerY, 1);
 }
 
 void InitGrid()
 {
 	for (int i = 0; i < GRID_LENGTH; ++i)
-	for (int j = 0; j < GRID_WIDTH; ++j)
+		for (int j = 0; j < GRID_WIDTH; ++j)
+		{
+			playGrid[i][j] = 0;
+		}
+}
+
+void UserDraw()
+{
+	if (!IsInGrid(GetMouseX(), GetMouseY()))
+		return;
+
+	if(IsMouseButtonDown(1))
+		*MapToGrid(playGrid, GetMouseX(), GetMouseY()) = 0;
+
+	if (IsMouseButtonDown(0))
 	{
-		playGrid[i][j] = 0;
+		*MapToGrid(playGrid, GetMouseX(), GetMouseY()) = 2;
+
+		if(IsKeyDown(CONTROL_DRAWDOOR))
+			*MapToGrid(playGrid, GetMouseX(), GetMouseY()) = 3;
+
+		if(IsKeyDown(CONTROL_DRAWGOAL))
+			*MapToGrid(playGrid, GetMouseX(), GetMouseY()) = 4;
+
+		if (IsKeyDown(CONTROL_DRAWNPC))
+			*MapToGrid(playGrid, GetMouseX(), GetMouseY()) = 5;
 	}
 }
 
-void DrawTextBox(Rectangle box, const char* text)
+Block* ClosestToPlayer(float playerX, float playerY)
 {
-	int padding = 20;
-	int wordCount = 0;
-	int fontSize = 30;
-	const char** words = TextSplit(text, ' ', &wordCount);
+	int dirX[] = { 0, 1, -1, 0, 0, 1, -1, 1, -1};
+	int dirY[] = { 0, 0, 0, 1, -1, 1, -1, -1, 1};
 
-	Vector2 pos = { box.x + padding, box.y + padding };
+	int gridX = playerX / GRID_CELL_SIZE;
+	int gridY = playerY / GRID_CELL_SIZE;
+	int a, b, c, min_dist, min_index;
+	int newX, newY;
 
-	Color color = { 0, 0, 0, 100 };
-	DrawRectangleRec(box, color);
+	min_dist = INT_MAX;
+	min_index = 0;
 
-	for (int i = 0; i < wordCount; ++i)
+	for (int i = 1; i <= 8; ++i)
 	{
-		if (pos.x + MeasureText(TextFormat(" %s", words[i]), fontSize) + padding
-			<= box.x + box.width)
-		{
-			DrawText(words[i], pos.x, pos.y, fontSize, WHITE);
-			pos.x += MeasureText(TextFormat(" %s", words[i]), fontSize);
+		newX = gridX + dirX[i];
+		newY = gridY + dirY[i];
+
+		if (newX < 0 || newX >= GRID_LENGTH) continue;
+		if (newY < 0 || newY >= GRID_WIDTH) continue;
+
+		if (playGrid[newX][newY] <= 2) continue;
+
+		a = playerX - newX * GRID_CELL_SIZE - GRID_CELL_SIZE / 2;
+		b = playerY - newY * GRID_CELL_SIZE - GRID_CELL_SIZE / 2;
+
+		c = a * a + b * b;
+		if(c < min_dist)
+		{ 
+			min_dist = c;
+			min_index = i;
 		}
-		else
-		{
-			pos.x = box.x + padding;
-			pos.y += fontSize + padding;
+	}
+
+	gridX += dirX[min_index];
+	gridY += dirY[min_index];
+
+	return &playGrid[gridX][gridY];
+}
+
+int GetInteraction(float playerX, float playerY)
+{
+	int block = *ClosestToPlayer(playerX, playerY);
+
+	if(IsKeyDown(CONTROL_INTERACT))
+		return block;
+
+	return 0;
+}
+
+void clearGrid() {
+	for (int i = 0; i < GRID_LENGTH; ++i) {
+		for (int j = 0; j < GRID_WIDTH; ++j) {
+			playGrid[i][j] = 0;
 		}
 	}
 }
@@ -173,42 +163,69 @@ Command GameScreen()
 	float playerY = 0;
 	float speed = 125.0f;
 
+	int interaction = 0, quizActive = 0, level = 0, quiz_question = 0, scor = 0, quiz_number;
+
+	InitQuestions();
+	QUESTION* questions = LoadQuiz(quiz_filenames[level], &quiz_number);
 	InitGrid();
 
+	LoadGameLayout(playGrid, &playerX, &playerY, level_filenames[level]);
+
+	Command nextCom = COM_EXIT;
 	while (!WindowShouldClose())
 	{
 		if (ButtonClicked(backButton))
-			return COM_BACK;
+		{
+			nextCom = COM_BACK;
+			break;
+		}
 
 		if (ButtonClicked(saveButton))
-			SaveGameLayout(&playerX, &playerY);
+			SaveGameLayout(playGrid, &playerX, &playerY);
 
 		if (ButtonClicked(loadButton))
-			LoadGameLayout(&playerX, &playerY);
+			LoadGameLayout(playGrid, &playerX, &playerY, level_filenames[level]);
 
-		if (IsMouseButtonDown(0) && IsInGrid(GetMouseX(), GetMouseY()))
-			*MapToGrid(GetMouseX(), GetMouseY()) = 2;
-		if (IsMouseButtonDown(1) && IsInGrid(GetMouseX(), GetMouseY()))
-			*MapToGrid(GetMouseX(), GetMouseY()) = 0;
+		interaction = GetInteraction(playerX, playerY);
 
-		if (IsKeyDown(CONTROL_SPRINT))
-			speed = 250.0f;
-		else
-			speed = 125.0f;
+		switch (interaction)
+		{
+		case 3:
+			if (quiz_question < quiz_number) 
+				//cap pentru nr de intrebari / nivel
+				quizActive = 1;
+			break;
+		case 5:
+			break;
+		}
 
-		MovePlayer(&playerX, &playerY, speed);
+		if (!quizActive)
+		{
+			UserDraw();
+
+			if (IsKeyDown(CONTROL_SPRINT))
+				speed = 250.0f;
+			else
+				speed = 125.0f;
+
+
+			MovePlayer(&playerX, &playerY, speed);
+		}
 
 		BeginDrawing();
 		ClearBackground(backgroundColor);
 
-		DrawGameGrid(startingCell);
+		GameDrawGrid(playGrid, startingCell);
 		DrawRectangle(playerX, playerY, PLAYER_SIZE, PLAYER_SIZE, RED);
+
+		if (*ClosestToPlayer(playerX, playerY) == 5)
+			DrawText("?", playerX + 2, playerY - 35, 30, RED);
 
 		DrawButton(backButton);
 		DrawButton(saveButton);
 		DrawButton(loadButton);
 
-		if (IsKeyDown(CONTROL_SHOWDIALOG))
+		if (interaction == 5)
 		{
 			DrawTextBox((Rectangle) {
 				.x = 20,
@@ -218,8 +235,40 @@ Command GameScreen()
 			}, "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque orci eros, pulvinar nec lectus id, auctor semper nisi. Cras eget convallis arcu. Etiam ac nisl auctor, varius velit quis, malesuada odio. Ut id mauris sed enim ullamcorper eleifend. Nunc in mi quis velit ultrices sollicitudin. Maecenas dapibus consectetur nunc, in euismod eros fringilla id. Maecenas molestie, neque sed suscipit rutrum, sem dolor laoreet justo, eget bibendum felis elit sit amet urna. Sed tempor vulputate dolor rutrum fringilla. Donec in elementum neque. Fusce et maximus enim. Vivamus nibh turpis, aliquet quis tristique ut, tincidunt non orci. Duis sollicitudin nunc ac est vestibulum auctor. Mauris imperdiet libero nisi.In massa mauris, fermentum ultricies sodales a, placerat vitae sapien. Mauris imperdiet justo vel elit elementum, non bibendum ex malesuada. asdjlkkadls kljadslkjdas ");
 		}
 
+		if (quizActive) {
+			if (Quiz(questions[quiz_question]) == 1){ //raspunde corect
+				quizActive = 0;
+				quiz_question++;
+				scor++;
+				printf("intrebari: %d\n", quiz_question);
+				*ClosestToPlayer(playerX, playerY) = 2; //disable quiz block
+
+			}
+			else if (Quiz(questions[quiz_question]) == 2) { //raspunde gresit
+				quiz_question++;
+				quizActive = 0;
+				printf("intrebari: %d\n", quiz_question);
+
+				*ClosestToPlayer(playerX, playerY) = 2; //disable quiz block
+
+			}
+		}
+
+		if (quiz_question == quiz_number) {
+			quiz_question = 0;
+			level++;
+			clearGrid();
+			playerX = 0;
+			playerY = 0;
+			LoadGameLayout(playGrid, &playerX, &playerY, level_filenames[level]); //next level
+			free(questions); //stop memory leaks
+			QUESTION* questions = LoadQuiz(quiz_filenames[level], &quiz_number); //next quiz
+
+		}
+
 		EndDrawing();
 	}
+	free(questions);
 
-	return COM_EXIT;
+	return nextCom;
 }

@@ -24,6 +24,15 @@
     <ClInclude Include="utils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="grid.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="player.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="question.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="game.c">
@@ -41,5 +50,22 @@
     <ClCompile Include="utils.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="player.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="question.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="grid.c">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="test.bin">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="layoutfile.dat">
+      <Filter>Header Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

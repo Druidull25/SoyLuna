@@ -131,14 +131,24 @@
   <ItemGroup>
     <ClInclude Include="config.h" />
     <ClInclude Include="game.h" />
+    <ClInclude Include="grid.h" />
+    <ClInclude Include="player.h" />
+    <ClInclude Include="question.h" />
     <ClInclude Include="utils.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="game.c" />
     <ClCompile Include="game_screen.c" />
+    <ClCompile Include="grid.c" />
     <ClCompile Include="main.c" />
+    <ClCompile Include="player.c" />
+    <ClCompile Include="question.c" />
     <ClCompile Include="title_screen.c" />
     <ClCompile Include="utils.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="layoutfile.dat" />
+    <None Include="test.bin" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
